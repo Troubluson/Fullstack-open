@@ -1,0 +1,3 @@
+[submodule "part3repo"]
+	path = part3repo
+	url = https://github.com/Troubluson/fullstack_part3.git
