@@ -55,7 +55,10 @@ const App = () => {
           `succesfully added ${person.name} to the phonebook`,
           "success"
         );
-      });
+      })
+        .catch(error => {
+          setNotification(error.response.data.error, "error")
+        })
     }
   };
 
@@ -87,8 +90,9 @@ const App = () => {
         );
       })
       .catch((error) => {
+        console.log(error.error)
         setNotification(
-          `Information of ${name} has already been removed from the server`,
+          error.response.data.error,
           "error"
         );
       });
@@ -97,8 +101,8 @@ const App = () => {
   const visiblePersons =
     filter !== ""
       ? persons.filter((person) =>
-          person.name.toLowerCase().includes(filter.toLowerCase())
-        )
+        person.name.toLowerCase().includes(filter.toLowerCase())
+      )
       : persons;
 
   return (

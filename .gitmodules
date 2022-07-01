@@ -2,3 +2,7 @@
 	path = part3repo
 	url = https://github.com/Troubluson/fullstack_part3.git
 	branch = "master"
+[submodule "part4repo"]
+	path = part4repo
+	url = https://github.com/Troubluson/Fullstack_part4.git
+	branch = "master"
