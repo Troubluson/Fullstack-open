@@ -20,7 +20,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    blogService.getAll().then((blogs) => setBlogs(blogs.sort((a,b) => a.likes < b.likes)));
   }, []);
 
   useEffect(() => {
@@ -75,9 +75,9 @@ const App = () => {
         url,
       };
       const newBlog = await blogService.create(blog);
-      blogs.append(newBlog);
+      setBlogs([...blogs, newBlog])
       let message = `Successfully added blog: "${newBlog.title}", by: ${newBlog.author}`;
-      setNotification((message, "success"));
+      setNotification(message, "success");
     } catch (error) {
       console.log(error.message);
       setNotification("Could not create new blog", "error");
@@ -92,6 +92,17 @@ const App = () => {
     } catch (error) {
       console.log(error.message);
       setNotification("Could not update blog", "error");
+    }
+  };
+
+  const deleteBlog = async (blogId) => {
+    try {
+      await blogService.remove(blogId);
+      const newBlogs = blogs.filter((blog) => (blog.id !== blogId))
+      setBlogs(newBlogs);
+    } catch (error) {
+      console.log(error.message);
+      setNotification("Could not delete blog", "error");
     }
   };
 
@@ -130,8 +141,8 @@ const App = () => {
         <NewBlogForm createBlog={createBlog} />
       </Togglable>
       <div>
-        {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+        {blogs.sort((a,b) => a.likes < b.likes).map((blog) => (
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog} />
         ))}
       </div>
     </div>

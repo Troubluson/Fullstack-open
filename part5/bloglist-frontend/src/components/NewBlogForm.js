@@ -7,7 +7,7 @@ const NewBlogForm = (props) => {
 
   const addBlog = (event) => {
     event.preventDefault();
-    props.createBlog(setBlogTitle, setBlogAuthor, setBlogUrl);
+    props.createBlog(blogTitle, blogAuthor, blogUrl);
     setBlogTitle("");
     setBlogAuthor("");
     setBlogUrl("");
