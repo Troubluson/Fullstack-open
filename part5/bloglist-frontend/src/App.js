@@ -5,6 +5,7 @@ import NewBlogForm from "./components/NewBlogForm";
 import LoginForm from "./components/LoginForm";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import Togglable from "./components/Togglable";
 
 const LOGGED_IN_USER = "loggedInUser";
 
@@ -74,14 +75,23 @@ const App = () => {
         url,
       };
       const newBlog = await blogService.create(blog);
-
+      blogs.append(newBlog);
       let message = `Successfully added blog: "${newBlog.title}", by: ${newBlog.author}`;
       setNotification((message, "success"));
     } catch (error) {
       console.log(error.message);
-      let message = "Could not create new blog";
+      setNotification("Could not create new blog", "error");
+    }
+  };
 
-      setNotification(message, "error");
+  const updateBlog = async (updatedBlogObject) => {
+    try {
+      const updatedBlog = await blogService.update(updatedBlogObject);
+      const newBlogs = blogs.map((blog) => (blog.id === updatedBlog.id ? updatedBlog : blog))
+      setBlogs(newBlogs);
+    } catch (error) {
+      console.log(error.message);
+      setNotification("Could not update blog", "error");
     }
   };
 
@@ -116,10 +126,12 @@ const App = () => {
           Logout
         </button>
       </div>
-      <NewBlogForm createBlog={createBlog} />
+      <Togglable name="new Blog">
+        <NewBlogForm createBlog={createBlog} />
+      </Togglable>
       <div>
         {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
         ))}
       </div>
     </div>

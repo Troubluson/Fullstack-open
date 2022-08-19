@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const NewBlogForm = (props) => {
   const [blogTitle, setBlogTitle] = useState("");
@@ -6,8 +6,8 @@ const NewBlogForm = (props) => {
   const [blogUrl, setBlogUrl] = useState("");
 
   const addBlog = (event) => {
-    event.preventDefault(setBlogTitle, setBlogAuthor, setBlogUrl);
-    props.createBlog();
+    event.preventDefault();
+    props.createBlog(setBlogTitle, setBlogAuthor, setBlogUrl);
     setBlogTitle("");
     setBlogAuthor("");
     setBlogUrl("");
