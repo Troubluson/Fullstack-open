@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-const NewBlogForm = (props) => {
-  const [blogTitle, setBlogTitle] = useState("");
-  const [blogAuthor, setBlogAuthor] = useState("");
-  const [blogUrl, setBlogUrl] = useState("");
+const NewBlogForm = ({ createBlog }) => {
+  const [blogTitle, setBlogTitle] = useState('')
+  const [blogAuthor, setBlogAuthor] = useState('')
+  const [blogUrl, setBlogUrl] = useState('')
 
   const addBlog = (event) => {
-    event.preventDefault();
-    props.createBlog(blogTitle, blogAuthor, blogUrl);
-    setBlogTitle("");
-    setBlogAuthor("");
-    setBlogUrl("");
-  };
+    event.preventDefault()
+    createBlog(blogTitle, blogAuthor, blogUrl)
+    setBlogTitle('')
+    setBlogAuthor('')
+    setBlogUrl('')
+  }
 
   return (
     <div>
@@ -20,7 +20,7 @@ const NewBlogForm = (props) => {
         <div>
           title:
           <input
-            type={"text"}
+            type={'text'}
             value={blogTitle}
             onChange={({ target }) => setBlogTitle(target.value)}
             name="blogTitle"
@@ -29,7 +29,7 @@ const NewBlogForm = (props) => {
         <div>
           author:
           <input
-            type={"text"}
+            type={'text'}
             value={blogAuthor}
             onChange={({ target }) => setBlogAuthor(target.value)}
             name="blogAuthor"
@@ -38,18 +38,18 @@ const NewBlogForm = (props) => {
         <div>
           url:
           <input
-            type={"text"}
+            type={'text'}
             value={blogUrl}
             onChange={({ target }) => setBlogUrl(target.value)}
             name="blogUrl"
           />
         </div>
         <div>
-          <button type={"submit"}>Create</button>
+          <button type={'submit'}>Create</button>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default NewBlogForm;
+export default NewBlogForm

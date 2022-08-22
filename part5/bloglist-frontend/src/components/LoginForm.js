@@ -1,7 +1,9 @@
+import PT from 'prop-types'
+
 const LoginForm = ({
   username,
-  setUsername,
   password,
+  setUsername,
   setPassword,
   handleLogin,
 }) => {
@@ -12,7 +14,7 @@ const LoginForm = ({
         <div>
           username
           <input
-            type={"text"}
+            type={'text'}
             value={username}
             onChange={({ target }) => setUsername(target.value)}
             name="username"
@@ -21,18 +23,26 @@ const LoginForm = ({
         <div>
           password
           <input
-            type={"password"}
+            type={'password'}
             value={password}
             onChange={({ target }) => setPassword(target.value)}
             name="password"
           />
         </div>
         <div>
-          <button type={"submit"}>Login</button>
+          <button type={'submit'}>Login</button>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+LoginForm.propTypes = {
+  username: PT.string.isRequired,
+  password: PT.string.isRequired,
+  setUsername: PT.func.isRequired,
+  setPassword: PT.func.isRequired,
+  handleLogin: PT.func.isRequired
+}
+
+export default LoginForm
